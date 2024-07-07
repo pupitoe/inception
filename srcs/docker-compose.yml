@@ -5,6 +5,7 @@ services:
     container_name: nginx
     networks:
       - chris_network
+    image: nginx # give name of image
     
 networks:
   chris_network:
