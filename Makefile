@@ -19,6 +19,7 @@ $(NAME): start
 
 start:
 	mkdir -p $(DATA)
+	docker compose -f ./srcs/docker-compose.yml up
 
 clean:
 	rm -rf $(DATA)
