@@ -19,7 +19,7 @@ $(NAME): build start
 
 start:
 	mkdir -p $(DATA)
-	docker compose -f ./srcs/docker-compose.yml up
+	docker compose -f ./srcs/docker-compose.yml up --detach
 
 build:
 	docker compose -f ./srcs/docker-compose.yml build
