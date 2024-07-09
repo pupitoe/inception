@@ -4,8 +4,7 @@ RUN apk upgrade --no-cache
 RUN apk add nginx && apk add vim
 RUN apk add openssl
 
-cmd [ "mkdir", "/etc/nginx/conf.d" ]
-COPY [ "./conf/nginx.conf", "/etc/nginx/conf.d/nginx.conf" ]
+COPY [ "./conf/default.conf", "/etc/nginx/http.d/default.conf" ]
 COPY [ "./conf/index.html", "/home/www/" ]
 COPY [ "./tools", "tools" ]
 
