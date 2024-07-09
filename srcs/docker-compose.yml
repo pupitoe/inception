@@ -6,7 +6,7 @@ services:
       - chris_network
     image: nginx # give name of image
     ports:
-      - "443:8080"
-    
+      - "443:443"
+
 networks:
   chris_network:

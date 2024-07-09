@@ -13,5 +13,3 @@ openssl x509 -req -days 3650 -in $c_path.csr -signkey $c_path.key -out $c_path.c
 
 #execut arguments
 exec "$@"
-
-#exec "$(tail -f)"
