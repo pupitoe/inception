@@ -1,0 +1,6 @@
+[mysqld]
+datadir=/database/
+socket=/mysqlsocket/mysql.sock
+
+[client-server]
+socket=/mysqlsocket/mysql.sock

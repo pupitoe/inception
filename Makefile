@@ -19,6 +19,7 @@ $(NAME): build start
 
 start:
 	mkdir -p $(DATA)
+	mkdir -p $(DATA)/mariadb
 	docker compose -f ./srcs/docker-compose.yml up --detach
 
 build:

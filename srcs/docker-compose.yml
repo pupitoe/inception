@@ -7,6 +7,22 @@ services:
     image: nginx # give name of image
     ports:
       - "443:443"
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb
+    networks:
+      - chris_network
+    image: mariadb
+    ports:
+      - "3306"
+    #volumes:
+    #  - florian_db:/database
 
 networks:
   chris_network:
+
+#volumes:
+#  florian_db:
+#      driver_opts:
+#        type:
+#        device: /home/tlassere/data/mariadb/
