@@ -1,6 +1,5 @@
 FROM alpine:3.19.2
 
-RUN apk add mysql mysql-client
 RUN apk add mariadb mariadb-client
 RUN apk add vim
 RUN apk add openssl
@@ -10,12 +9,10 @@ RUN [ "mkdir", "database" ]
 RUN [ "mkdir", "mysqlsocket" ]
 RUN chown mysql /mysqlsocket
 RUN chown mysql /database
+COPY [ "./tools", "tools" ]
+RUN [ "chmod", "+x", "./tools/script.sh" ]
+
 USER mysql
-#COPY [ "./tools", "tools" ]
-#RUN [ "chmod", "+x", "./tools/script.sh" ]
-
-#ENTRYPOINT [ "./tools/script.sh", "nginx",  "-g", "daemon off;" ]
-
-CMD [ "tail", "-f" ]
+ENTRYPOINT [ "./tools/script.sh", "mariadbd"]
 
 EXPOSE 3306/tcp
