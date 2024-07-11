@@ -7,6 +7,8 @@ services:
     image: nginx # give name of image
     ports:
       - "443:443"
+    volumes:
+      - dehvidpress:/home/www
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb

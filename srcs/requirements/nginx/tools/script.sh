@@ -6,8 +6,6 @@ namefile=fuck
 
 c_path="$c_nginx/$namefile"
 
-mkdir -p "$c_nginx"
-
 # the conditions are used to check if the files are not created and to make them as needed
 # -e return true if file exist
 

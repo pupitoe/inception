@@ -8,6 +8,10 @@ COPY [ "./conf/default.conf", "/etc/nginx/http.d/default.conf" ]
 COPY [ "./conf/index.html", "/home/www/" ]
 COPY [ "./tools", "tools" ]
 RUN [ "chmod", "+x", "./tools/script.sh" ]
+RUN mkdir -p /etc/nginx/certif
+RUN chown nginx /etc/nginx/certif
+
+USER nginx
 
 ENTRYPOINT [ "./tools/script.sh", "nginx",  "-g", "daemon off;" ]
 
