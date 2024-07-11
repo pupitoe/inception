@@ -15,14 +15,15 @@ services:
     image: mariadb
     ports:
       - "3306"
-    #volumes:
-    #  - florian_db:/database
+    volumes:
+      - florian_db:/database
 
 networks:
   chris_network:
 
-#volumes:
-#  florian_db:
-#      driver_opts:
-#        type:
-#        device: /home/tlassere/data/mariadb/
+volumes:
+  florian_db:
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/tlassere/data/mariadb/
