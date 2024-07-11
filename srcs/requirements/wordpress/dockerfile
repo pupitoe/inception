@@ -1,0 +1,8 @@
+FROM alpine:3.19.2
+
+RUN apk add vim
+RUN apk add php php-fpm
+
+CMD [ "tail", "-f" ]
+
+EXPOSE 9000/tcp

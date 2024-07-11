@@ -13,10 +13,16 @@ services:
     networks:
       - chris_network
     image: mariadb
-    ports:
-      - "3306"
     volumes:
       - florian_db:/database
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress
+    networks:
+      - chris_network
+    image: wordpress
+    volumes:
+      - dehvidpress:/website
 
 networks:
   chris_network:
@@ -27,3 +33,8 @@ volumes:
         type: none
         o: bind
         device: /home/tlassere/data/mariadb/
+  dehvidpress:
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/tlassere/data/website/
