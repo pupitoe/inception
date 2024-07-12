@@ -5,9 +5,12 @@ RUN apk add php php-fpm
 RUN mkdir -p website
 RUN adduser --disabled-password wordpress_user
 RUN chown wordpress_user /website
+COPY ./conf/php_wordpress.conf /etc/php82/php-fpm.d/php_wordpress.conf
 
 #USER wordpress_user
 
-CMD [ "php-fpm82", "-F" ]
+CMD [ "tail", "-f" ]
+
+#CMD [ "php-fpm82", "-F" ]
 
 EXPOSE 9000/tcp
