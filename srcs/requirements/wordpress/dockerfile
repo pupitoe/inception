@@ -2,9 +2,12 @@ FROM alpine:3.19.2
 
 RUN apk add vim
 RUN apk add php php-fpm
-
 RUN mkdir -p website
+RUN adduser --disabled-password wordpress_user
+RUN chown wordpress_user /website
 
-CMD [ "tail", "-f" ]
+#USER wordpress_user
+
+CMD [ "php-fpm82", "-F" ]
 
 EXPOSE 9000/tcp

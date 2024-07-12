@@ -27,5 +27,9 @@ then
 	openssl x509 -req -days 3650 -in $c_path.csr -signkey $c_path.key -out $c_path.crt
 fi
 
+while ! nc -z localhost 9000; do
+  sleep 0.1
+done
+
 #execut arguments
 exec "$@"
