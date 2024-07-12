@@ -9,8 +9,8 @@ COPY ./conf/php_wordpress.conf /etc/php82/php-fpm.d/php_wordpress.conf
 
 #USER wordpress_user
 
-CMD [ "tail", "-f" ]
+#CMD [ "tail", "-f" ]
 
-#CMD [ "php-fpm82", "-F" ]
+CMD [ "php-fpm82", "-F" ]
 
-EXPOSE 9000/tcp
+EXPOSE 6969/tcp
