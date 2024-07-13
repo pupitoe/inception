@@ -1,16 +1,19 @@
 FROM alpine:3.19.2
 
 RUN apk add vim
-RUN apk add php php-fpm
-RUN mkdir -p website
+RUN apk add php-fpm
+RUN mkdir -p /home/www
 RUN adduser --disabled-password wordpress_user
-RUN chown wordpress_user /website
+RUN adduser --disabled-password nginx
+RUN chown wordpress_user /home/www
 COPY ./conf/php_wordpress.conf /etc/php82/php-fpm.d/php_wordpress.conf
 
-#USER wordpress_user
+RUN chown wordpress_user /var/log/php82/
+
+USER wordpress_user
+
+EXPOSE 6969/tcp
 
 #CMD [ "tail", "-f" ]
 
 CMD [ "php-fpm82", "-F" ]
-
-EXPOSE 6969/tcp

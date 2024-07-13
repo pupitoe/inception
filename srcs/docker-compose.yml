@@ -24,7 +24,7 @@ services:
       - chris_network
     image: wordpress
     volumes:
-      - dehvidpress:/website
+      - dehvidpress:/home/www
 
 networks:
   chris_network:
