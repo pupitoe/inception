@@ -12,7 +12,7 @@ RUN mkdir -p /etc/nginx/certif
 RUN chown nginx /etc/nginx/certif
 RUN chown nginx /home/www
 
-#USER nginx
+USER nginx
 
 ENTRYPOINT [ "./tools/script.sh", "nginx",  "-g", "daemon off;" ]
 
