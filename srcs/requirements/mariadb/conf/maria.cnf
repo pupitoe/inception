@@ -4,3 +4,4 @@ socket=/mysqlsocket/mysql.sock
 
 [client-server]
 socket=/mysqlsocket/mysql.sock
+bind-address = 0.0.0.0

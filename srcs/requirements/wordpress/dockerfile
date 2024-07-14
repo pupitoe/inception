@@ -13,7 +13,7 @@ COPY ./conf/php_wordpress.conf /etc/php82/php-fpm.d/php_wordpress.conf
 
 RUN chown wordpress_user /var/log/php82/
 
-USER wordpress_user
+#USER wordpress_user
 
 ENTRYPOINT [ "./tools/script.sh", "php-fpm82", "-F" ]
 

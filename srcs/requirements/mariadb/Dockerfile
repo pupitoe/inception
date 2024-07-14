@@ -11,6 +11,8 @@ RUN [ "mkdir", "mysqlsocket" ]
 RUN ["chown", "mysql", "/mysqlsocket"]
 RUN ["chown", "mysql", "/database"]
 
+RUN rm /etc/my.cnf.d/mariadb-server.cnf
+
 USER mysql
 ENTRYPOINT [ "./tools/script.sh", "mariadbd"]
 

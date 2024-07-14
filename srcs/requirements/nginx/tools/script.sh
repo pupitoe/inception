@@ -31,5 +31,6 @@ while ! nc -z wordpress 9000; do
   sleep 0.1
 done
 
+echo start wordpress
 #execut arguments
 exec "$@"
