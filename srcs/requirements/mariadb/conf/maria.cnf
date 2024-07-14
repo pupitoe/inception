@@ -1,7 +1,7 @@
 [mysqld]
 datadir=/database/
 socket=/mysqlsocket/mysql.sock
+bind-address = 0.0.0.0
 
 [client-server]
 socket=/mysqlsocket/mysql.sock
-bind-address = 0.0.0.0
