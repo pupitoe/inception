@@ -8,12 +8,15 @@ COPY [ "./tools", "tools" ]
 RUN [ "chmod", "+x", "./tools/script.sh" ]
 RUN [ "mkdir", "database" ]
 RUN [ "mkdir", "mysqlsocket" ]
-RUN ["chown", "mysql", "/mysqlsocket"]
-RUN ["chown", "mysql", "/database"]
+RUN ["chown", "mysql:mysql", "/mysqlsocket"]
+RUN ["chown", "mysql:mysql", "/database"]
+RUN ["chown", "mysql:mysql", "/etc"]
+RUN mkdir /var/lib/mysql
+RUN ["chown", "mysql:mysql", "/var/lib/mysql"]
+RUN ["chown", "mysql:mysql", "/var/log"]
 
 RUN rm /etc/my.cnf.d/mariadb-server.cnf
 
-USER mysql
-ENTRYPOINT [ "./tools/script.sh", "mariadbd"]
+ENTRYPOINT [ "./tools/script.sh", "mariadbd", "--user=mysql"]
 
 EXPOSE 3306/tcp

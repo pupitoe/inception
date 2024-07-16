@@ -2,6 +2,7 @@
 datadir=/database/
 socket=/mysqlsocket/mysql.sock
 bind-address = 0.0.0.0
+log-error=/var/log/mysqld.log
 
 [client-server]
 socket=/mysqlsocket/mysql.sock

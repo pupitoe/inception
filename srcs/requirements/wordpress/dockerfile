@@ -2,6 +2,7 @@ FROM alpine:3.19.2
 
 RUN apk add vim
 RUN apk add php82-fpm
+
 # se module permet de communiquer entre le php et la base de donner
 RUN apk add php82-mysqli
 
@@ -12,14 +13,14 @@ RUN rm /etc/php82/php-fpm.d/www.conf
 RUN adduser --disabled-password wordpress_user
 RUN adduser --disabled-password nginx
 
-RUN chown wordpress_user /home/www
+RUN chown wordpress_user:wordpress_user /home/www
 
 COPY [ "./tools", "tools" ]
 RUN [ "chmod", "+x", "./tools/script.sh" ]
 
 COPY ./conf/php_wordpress.conf /etc/php82/php-fpm.d/php_wordpress.conf
 
-RUN chown wordpress_user /var/log/php82/
+RUN chown wordpress_user:wordpress_user /var/log/php82/
 
 #USER wordpress_user
 

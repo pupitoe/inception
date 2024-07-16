@@ -9,8 +9,8 @@ COPY [ "./conf/index.html", "/home/www/" ]
 COPY [ "./tools", "tools" ]
 RUN [ "chmod", "+x", "./tools/script.sh" ]
 RUN mkdir -p /etc/nginx/certif
-RUN chown nginx /etc/nginx/certif
-RUN chown nginx /home/www
+RUN chown nginx:nginx /etc/nginx/certif
+RUN chown nginx:nginx /home/www
 
 USER nginx
 
