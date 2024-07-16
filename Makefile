@@ -23,12 +23,18 @@ start:
 	mkdir -p $(DATA)/website
 	docker compose -f ./srcs/docker-compose.yml up --detach
 
+down:
+	docker stop mariadb nginx wordpress
+
+prune: down
+	docker system prune
+
 build:
 	docker compose -f ./srcs/docker-compose.yml build
 
 delete-all: clean
-	docker rmi -f `docker images -aq`
-	docker rm -vf `docker ps -aq`
+	docker rmi -f mariadb wordpress nginx
+	docker rm -f mariadb wordpress nginx
 
 clean:
 	rm -rf $(DATA)

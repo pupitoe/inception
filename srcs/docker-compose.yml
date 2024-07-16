@@ -17,6 +17,9 @@ services:
     image: mariadb
     volumes:
       - florian_db:/database
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASS=${MYSQL_PASS}
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress

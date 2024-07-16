@@ -13,13 +13,18 @@ install_mariadb() {
 
 n
 Y
-PASS
-PASS
+$MYSQL_PASS
+$MYSQL_PASS
 Y
 Y
 Y
 Y
 EOF
+	#mariadb -u root -p"$MYSQL_PASS" -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
+	mariadb -u root -p"$MYSQL_PASS" -e "FLUSH PRIVILEGES;"
+	mariadb -u root -p"$MYSQL_PASS" -e "CREATE DATABASE wordpress;"
+	mariadb -u root -p"$MYSQL_PASS" -e "GRANT ALL PRIVILEGES ON wordpress.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
+	mariadb -u root -p"$MYSQL_PASS" -e "FLUSH PRIVILEGES;"
 	kill -s QUIT "${PIDMDB}"
 	wait "${PIDMDB}" # permet de free les la tache en arrier plan et d'avoir sont exit status
 	rm -rf "/var/log/mysqld.log"
@@ -31,4 +36,8 @@ if [ ! -e /database/terminate_init_process ]; then
 	install_mariadb
 fi
 
+$MYSQL_USER=""
+$MYSQL_PASS=""
+
+echo start wordpress
 exec "$@"

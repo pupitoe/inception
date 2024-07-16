@@ -7,6 +7,7 @@ RUN apk add php82-fpm
 RUN apk add php82-mysqli
 
 RUN mkdir -p /home/www
+RUN mkdir -p wordpress_file
 
 RUN rm /etc/php82/php-fpm.d/www.conf
 
@@ -21,6 +22,7 @@ RUN [ "chmod", "+x", "./tools/script.sh" ]
 COPY ./conf/php_wordpress.conf /etc/php82/php-fpm.d/php_wordpress.conf
 
 RUN chown wordpress_user:wordpress_user /var/log/php82/
+RUN chown wordpress_user:wordpress_user wordpress_file
 
 #USER wordpress_user
 
