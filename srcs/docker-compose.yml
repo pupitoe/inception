@@ -9,6 +9,7 @@ services:
       - "443:443"
     volumes:
       - dehvidpress:/home/www
+    restart: unless-stopped
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
@@ -20,6 +21,9 @@ services:
     environment:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASS=${MYSQL_PASS}
+      - MYSQL_PASS_R=${MYSQL_PASS_R}
+      - MYSQL_NAME=${MYSQL_NAME}
+    restart: unless-stopped
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
@@ -28,6 +32,7 @@ services:
     image: wordpress
     volumes:
       - dehvidpress:/home/www
+    restart: unless-stopped
 
 networks:
   chris_network:

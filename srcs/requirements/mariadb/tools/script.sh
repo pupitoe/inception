@@ -9,22 +9,15 @@ install_mariadb() {
 	until tail "/var/log/mysqld.log" | grep -q "Version:"; do
 		sleep 0.2
 	done
-	mariadb-secure-installation -S /mysqlsocket/mysql.sock << EOF
-
-n
-Y
-$MYSQL_PASS
-$MYSQL_PASS
-Y
-Y
-Y
-Y
-EOF
-	#mariadb -u root -p"$MYSQL_PASS" -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
-	mariadb -u root -p"$MYSQL_PASS" -e "FLUSH PRIVILEGES;"
-	mariadb -u root -p"$MYSQL_PASS" -e "CREATE DATABASE wordpress;"
-	mariadb -u root -p"$MYSQL_PASS" -e "GRANT ALL PRIVILEGES ON wordpress.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
-	mariadb -u root -p"$MYSQL_PASS" -e "FLUSH PRIVILEGES;"
+	mariadb -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_PASS_R'; FLUSH PRIVILEGES;"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "DROP USER ''@'localhost';"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "DROP USER ''@'$(hostname)';"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "DROP DATABASE test;"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "FLUSH PRIVILEGES;"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "CREATE DATABASE wordpress;"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "GRANT ALL PRIVILEGES ON wordpress.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "FLUSH PRIVILEGES;"
 	kill -s QUIT "${PIDMDB}"
 	wait "${PIDMDB}" # permet de free les la tache en arrier plan et d'avoir sont exit status
 	rm -rf "/var/log/mysqld.log"
@@ -36,8 +29,9 @@ if [ ! -e /database/terminate_init_process ]; then
 	install_mariadb
 fi
 
-$MYSQL_USER=""
-$MYSQL_PASS=""
+MYSQL_USER=""
+MYSQL_PASS=""
+MYSQL_PASS_R=""
 
-echo start wordpress
+echo start mariadb
 exec "$@"
