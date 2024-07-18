@@ -1,6 +1,8 @@
 FROM alpine:3.19.2
 
 RUN apk add vim
+RUN apk add php82
+RUN apk add php82-phar
 RUN apk add php82-fpm
 
 # se module permet de communiquer entre le php et la base de donner

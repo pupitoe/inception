@@ -4,7 +4,7 @@ install_mariadb() {
 	rm -rf /database/*
 
 	mariadb-install-db --user=mysql
-	mariadbd --user=mysql &
+	mariadbd --user=mysql --skip-networking &
 	PIDMDB="$!"
 	until tail "/var/log/mysqld.log" | grep -q "Version:"; do
 		sleep 0.2
@@ -15,8 +15,8 @@ install_mariadb() {
 	mariadb -u root -p"$MYSQL_PASS_R" -e "DROP DATABASE test;"
 	mariadb -u root -p"$MYSQL_PASS_R" -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
 	mariadb -u root -p"$MYSQL_PASS_R" -e "FLUSH PRIVILEGES;"
-	mariadb -u root -p"$MYSQL_PASS_R" -e "CREATE DATABASE wordpress;"
-	mariadb -u root -p"$MYSQL_PASS_R" -e "GRANT ALL PRIVILEGES ON wordpress.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "CREATE DATABASE $MYSQL_NAME;"
+	mariadb -u root -p"$MYSQL_PASS_R" -e "GRANT ALL PRIVILEGES ON $MYSQL_NAME.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
 	mariadb -u root -p"$MYSQL_PASS_R" -e "FLUSH PRIVILEGES;"
 	kill -s QUIT "${PIDMDB}"
 	wait "${PIDMDB}" # permet de free les la tache en arrier plan et d'avoir sont exit status
@@ -29,9 +29,9 @@ if [ ! -e /database/terminate_init_process ]; then
 	install_mariadb
 fi
 
-MYSQL_USER=""
-MYSQL_PASS=""
-MYSQL_PASS_R=""
+unset MYSQL_USER
+unset MYSQL_PASS
+unset MYSQL_PASS_R
 
 echo start mariadb
 exec "$@"
