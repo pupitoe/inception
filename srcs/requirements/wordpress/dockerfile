@@ -4,6 +4,7 @@ RUN apk add vim
 RUN apk add php82
 RUN apk add php82-phar
 RUN apk add php82-fpm
+RUN apk add php82-iconv
 
 # se module permet de communiquer entre le php et la base de donner
 RUN apk add php82-mysqli

@@ -28,6 +28,7 @@ down:
 
 prune: down
 	docker system prune
+	sudo rm -rf ~/data/*
 
 build:
 	docker compose -f ./srcs/docker-compose.yml build
@@ -38,3 +39,5 @@ delete-all: clean
 
 clean:
 	rm -rf $(DATA)
+
+re:	prune $(NAME)
