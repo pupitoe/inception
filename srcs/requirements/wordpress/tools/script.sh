@@ -18,7 +18,7 @@ wordpress_startup() {
 	$WP core config --dbhost=mariadb --dbname=$MYSQL_NAME --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASS
 	echo core config --dbhost=mariadb --dbname=$MYSQL_NAME --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASS
 	# TO set up the database table
-	$WP core install --url=$DOMAIN_NAME --title="fabio the big boss" --admin_name=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASS --admin_email=tlassere@student.mulhouse.fr --skip-email
+	$WP core install --url=$DOMAIN_NAME --title="fabio the big boss" --admin_name=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASS --admin_email="$WORDPRESS_ADMIN_USER@$DOMAIN_NAME" --skip-email
 	rm -f $WP
 	cd /
 	touch $FINISH_FILE

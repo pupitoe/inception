@@ -6,6 +6,7 @@ RUN apk add vim
 
 COPY [ "./conf/default.conf", "/etc/nginx/http.d/default.conf" ]
 COPY [ "./conf/index.html", "/home/www/" ]
+COPY [ "./conf/404.html", "/home/www/" ]
 COPY [ "./tools", "tools" ]
 RUN [ "chmod", "+x", "./tools/script.sh" ]
 RUN mkdir -p /etc/nginx/certif
