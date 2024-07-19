@@ -4,7 +4,7 @@ install_mariadb() {
 	rm -rf /database/*
 
 	mariadb-install-db --user=mysql
-	mariadbd --user=mysql --skip-networking &
+	mariadbd --user=mysql --skip-networking=0 &
 	PIDMDB="$!"
 	until tail "/var/log/mysqld.log" | grep -q "Version:"; do
 		sleep 0.2
@@ -19,11 +19,12 @@ install_mariadb() {
 	mariadb -u root -p"$MYSQL_PASS_R" -e "GRANT ALL PRIVILEGES ON $MYSQL_NAME.* TO '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASS';"
 	mariadb -u root -p"$MYSQL_PASS_R" -e "FLUSH PRIVILEGES;"
 	kill -s QUIT "${PIDMDB}"
-	wait "${PIDMDB}" # permet de free les la tache en arrier plan et d'avoir sont exit status
+	wait "${PIDMDB}"
 	rm -rf "/var/log/mysqld.log"
 
 	touch /database/terminate_init_process
 }
+
 # check if db is installed
 if [ ! -e /database/terminate_init_process ]; then
 	install_mariadb

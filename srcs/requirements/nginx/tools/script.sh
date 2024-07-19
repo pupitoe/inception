@@ -2,7 +2,7 @@
 
 c_nginx=/etc/nginx/certif
 
-namefile=fuck
+namefile=certif
 
 c_path="$c_nginx/$namefile"
 
