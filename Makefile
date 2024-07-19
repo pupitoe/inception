@@ -23,6 +23,9 @@ start:
 	mkdir -p $(DATA)/website
 	docker compose -f ./srcs/docker-compose.yml up --detach
 
+up:
+	docker start mariadb nginx wordpress
+
 down:
 	docker stop mariadb nginx wordpress
 
