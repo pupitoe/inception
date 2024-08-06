@@ -24,10 +24,10 @@ start:
 	docker compose -f ./srcs/docker-compose.yml up --detach
 
 up:
-	docker start mariadb nginx wordpress
+	docker start mariadb nginx wordpress redis ftp
 
 down:
-	docker stop mariadb nginx wordpress
+	docker stop mariadb nginx wordpress redis ftp
 
 prune: down
 	docker system prune
@@ -37,8 +37,8 @@ build:
 	docker compose -f ./srcs/docker-compose.yml build
 
 delete-all: clean
-	docker rmi -f mariadb wordpress nginx
-	docker rm -f mariadb wordpress nginx
+	docker rmi -f mariadb wordpress nginx redis ftp
+	docker rm -f mariadb wordpress nginx redis ftp
 
 clean:
 	rm -rf $(DATA)

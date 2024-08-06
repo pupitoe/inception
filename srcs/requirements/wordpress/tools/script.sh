@@ -3,6 +3,9 @@
 while ! nc -z mariadb 3306; do
   sleep 0.1
 done
+while ! nc -z redis 6379; do
+  sleep 0.1
+done
 
 WP="php /wordpress_file/wp-cli.phar"
 
@@ -18,6 +21,11 @@ wordpress_startup() {
 	$WP core config --dbhost=mariadb --dbname=$MYSQL_NAME --dbuser=$MYSQL_USER --dbpass=$MYSQL_PASS
 	# TO set up the database table
 	$WP core install --url=https://$DOMAIN_NAME --title="fabio the big boss" --admin_name=$WORDPRESS_ADMIN_USER --admin_password=$WORDPRESS_ADMIN_PASS --admin_email="$WORDPRESS_ADMIN_USER@$DOMAIN_NAME" --skip-email
+	#$WP config set WP_REDIS_HOST redis
+	#$WP config set WP_REDIS_PORT 6379
+	#$WP config set WP_REDIS_SCHEME "tpc"
+	#$WP plugin install redis-cache --activate
+	#$WP redis enable
 	rm -f $WP
 	cd /
 	touch $FINISH_FILE

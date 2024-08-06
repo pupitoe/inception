@@ -11,6 +11,8 @@ RUN apk add php82-iconv
 # php to comunicated with mysql
 RUN apk add php82-mysqli
 
+RUN apk add php82-redis
+
 RUN mkdir -p /home/www
 RUN mkdir -p wordpress_file
 
